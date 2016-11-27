@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3D Printer Intel Design</title>
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="//www.chartjs.org/assets/Chart.min.js"></script>
+<script src="js/dashboard.js"></script>
+
+<script>
+     $(function () {
+        $(document).keydown(function (e) {
+            return (e.which || e.keyCode) != 116;
+            window.open ("URL",
+"mywindow","status=1,toolbar=0");
+        });
+    })
+  
+jQuery(function(){
+        $("#update_password").click(function(){
+        $(".error").hide();
+        var hasError = false;
+        var passwordVal = $("#password").val();
+        var checkVal = $("#confirmpassword").val();
+        if (passwordVal == '') {
+            $("#password").after('<span class="error">Please enter a password.</span>');
+            hasError = true;
+        } else if (checkVal == '') {
+            $("#confirmpassword").after('<span class="error">Please re-enter your password.</span>');
+            hasError = true;
+        } else if (passwordVal != checkVal ) {
+            $("#confirmpassword").after('<span class="error">Passwords do not match.</span>');
+            hasError = true;
+        }
+        if(hasError == true) {return false;}
+    });
+});    
+    
+</script>
+
+</head>
+<body>
+    
+<div class="container">
+   
+  <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Dashboard</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li> <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+              <li class="dropdown">
+                <a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><%= user.local.email %><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li data-toggle="modal" data-target="#user-info-modal"><a href="#" >Change Password</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+    </br> </br>
+    
+	<div class="menu">
+  
+         <div class="panel panel-success">
+			  <div class="panel-heading">
+                    <h3 class="panel-title">Printer Menu</h3>
+                </div>
+             
+             
+ <% if (printer_info.length) { %>
+    <div class="row">
+   <% for(var i=0; i <printer_info.length; i++) {%>
+      <div class="col-xs-3 well"><a href="/dashboard/<%= i %>"><img class="thumbnail" id ="p1" src="/images/3dprinter.jpg" height="220px" width="230px"></a>
+            </br> <p class="printer_text">Name : <%= printer_info[i].printername %></%></p><p class="printer_text">Status: On-Hold</p>
+        </div>
+    <% } %>
+    </div>
+<% } %>         
+             
+             
+   <!---          
+            <form type=get action="#">
+        
+        <table style="width:100%">
+  <tr>
+	  <td> <div class="well" id = "printer"><a href="/dashboard?name="> <img class="thumbnail" id ="p1" src="/images/3dprinter.jpg" height="220px" width="230px"></a></div>  
+		 </br> <p class="printer_text">Name : Elephant</p><p class="printer_text">Status: On-Hold</p>
+		 
+			      </td>
+				<td> <div class="well" id = "printer" ><a href="/dashboard?name=sparrow"><img class="thumbnail" id ="p2" src="/images/3dprinter.jpg" height="220px" width="230px"></a></div>   
+		  </br><p class="printer_text">Name : Sparrow</p><p class="printer_text">Status:Waiting</p>
+		  
+      </td>
+	<td> <div class="well" id = "printer" ><a href="/dashboard?name=horse"> <img class="thumbnail" id ="p3" src="/images/3dprinter.jpg" height="220px" width="230px"></a>
+          </div>     
+		  
+		  </br><p class="printer_text">Name : Horse</p><p class="printer_text">Status: Printing</p>
+      </td>
+<td><div class="well" id = "printer" ><a href="/dashboard?name=pegasus"><img class="thumbnail" id ="p4" src="/images/3dprinter.jpg" height="220px" width="230px"> </a></div>   
+
+</br><p class="printer_text">Name : Pegasus</p><p class="printer_text">Status: Paused</p>
+
+
+</td>
+  </tr>
+
+</table> 
+
+</form>
+     -->
+    </div>
+  
+</div><!--Menu Div end-->
+  
+
+        
+  </div>
+
+ <div class= "footer" >
+      <p style="text-align:center">All right reserved@3d-printer</p>
+      dashboard.html
+  </div>
+
+        <!--Modal Window start-->
+    <div class="modal fade" id="user-info-modal" tabindex="-1" role="dialog" aria-labelledby="userInfoModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="userInfoModalLabel">Change Password</h4>
+      </div>
+      <div class="modal-body">
+   
+          <form id="identicalForm" method="post" action="/update" class="form-horizontal"
+    data-fv-framework="bootstrap"
+    data-fv-icon-valid="glyphicon glyphicon-ok"
+    data-fv-icon-invalid="glyphicon glyphicon-remove"
+    data-fv-icon-validating="glyphicon glyphicon-refresh">
+
+    <div class="form-group">
+        <label class="col-xs-4 control-label">Password</label>
+        <div class="col-xs-5">
+            <input type="password" class="form-control" id="password" name="password" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-4 control-label">Retype password</label>
+        <div class="col-xs-5">
+            <input type="password" class="form-control" id="confirmpassword" name="confirmpassword"
+                data-fv-identical="true"
+                data-fv-identical-field="password"
+                data-fv-identical-message="The password and its confirm are not the same" />
+        </div>
+    </div>
+
+
+    </div>
+      
+              <div class="modal-footer save">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="update_password">Save changes</button>
+              </div>
+        
+        
+  </div>
+</div>
+        </div></form>
+        
+    <!-- Modal window end-->
+</body>
+</html>                                		

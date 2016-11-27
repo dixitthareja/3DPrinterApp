@@ -1,0 +1,15 @@
+{
+  "name": "socket.io-1.2.0",
+  "_cacheHeaders": {
+    "ETag": "\"544ecf83-143b9\"",
+    "Last-Modified": "Mon, 27 Oct 2014 23:04:35 GMT",
+    "Content-Length": "82873",
+    "Content-Type": "application/javascript"
+  },
+  "_release": "e-tag:544ecf83-",
+  "main": "index.js",
+  "_source": "https://cdn.socket.io/socket.io-1.2.0.js",
+  "_target": "*",
+  "_originalSource": "https://cdn.socket.io/socket.io-1.2.0.js",
+  "_direct": true
+}

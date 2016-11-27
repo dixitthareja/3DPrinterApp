@@ -1,0 +1,90 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'body-parsrser',
+1 verbose cli   '--save' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.40
+4 verbose node symlink /usr/bin/node
+5 warn package.json login@0.0.1 No repository field.
+6 warn package.json login@0.0.1 No README data
+7 warn package.json path@0.11.14 path is also the name of a node core module.
+8 verbose readDependencies using package.json deps
+9 verbose cache add [ 'body-parsrser', null ]
+10 verbose cache add name=undefined spec="body-parsrser" args=["body-parsrser",null]
+11 verbose parsed url { protocol: null,
+11 verbose parsed url   slashes: null,
+11 verbose parsed url   auth: null,
+11 verbose parsed url   host: null,
+11 verbose parsed url   port: null,
+11 verbose parsed url   hostname: null,
+11 verbose parsed url   hash: null,
+11 verbose parsed url   search: null,
+11 verbose parsed url   query: null,
+11 verbose parsed url   pathname: 'body-parsrser',
+11 verbose parsed url   path: 'body-parsrser',
+11 verbose parsed url   href: 'body-parsrser' }
+12 silly lockFile a80992fc-body-parsrser body-parsrser
+13 verbose lock body-parsrser /home/d/.npm/a80992fc-body-parsrser.lock
+14 silly lockFile a80992fc-body-parsrser body-parsrser
+15 silly lockFile a80992fc-body-parsrser body-parsrser
+16 verbose addNamed [ 'body-parsrser', '' ]
+17 verbose addNamed [ null, '*' ]
+18 silly lockFile bf0d6d6c-body-parsrser body-parsrser@
+19 verbose lock body-parsrser@ /home/d/.npm/bf0d6d6c-body-parsrser.lock
+20 silly addNameRange { name: 'body-parsrser', range: '*', hasData: false }
+21 verbose request where is /body-parsrser
+22 verbose request registry https://registry.npmjs.org/
+23 verbose request id e8b18d0ce18cab7b
+24 verbose url raw /body-parsrser
+25 verbose url resolving [ 'https://registry.npmjs.org/', './body-parsrser' ]
+26 verbose url resolved https://registry.npmjs.org/body-parsrser
+27 verbose request where is https://registry.npmjs.org/body-parsrser
+28 info trying registry request attempt 1 at 17:27:35
+29 http GET https://registry.npmjs.org/body-parsrser
+30 http 404 https://registry.npmjs.org/body-parsrser
+31 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+31 verbose headers   'content-type': 'application/json',
+31 verbose headers   'cache-control': 'max-age=0',
+31 verbose headers   'content-length': '51',
+31 verbose headers   'accept-ranges': 'bytes',
+31 verbose headers   date: 'Sun, 12 Jul 2015 15:27:35 GMT',
+31 verbose headers   via: '1.1 varnish',
+31 verbose headers   age: '0',
+31 verbose headers   connection: 'keep-alive',
+31 verbose headers   'x-served-by': 'cache-ams4146-AMS',
+31 verbose headers   'x-cache': 'MISS',
+31 verbose headers   'x-cache-hits': '0',
+31 verbose headers   'x-timer': 'S1436714855.466122,VS0,VE97' }
+32 silly registry.get cb [ 404,
+32 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+32 silly registry.get     'content-type': 'application/json',
+32 silly registry.get     'cache-control': 'max-age=0',
+32 silly registry.get     'content-length': '51',
+32 silly registry.get     'accept-ranges': 'bytes',
+32 silly registry.get     date: 'Sun, 12 Jul 2015 15:27:35 GMT',
+32 silly registry.get     via: '1.1 varnish',
+32 silly registry.get     age: '0',
+32 silly registry.get     connection: 'keep-alive',
+32 silly registry.get     'x-served-by': 'cache-ams4146-AMS',
+32 silly registry.get     'x-cache': 'MISS',
+32 silly registry.get     'x-cache-hits': '0',
+32 silly registry.get     'x-timer': 'S1436714855.466122,VS0,VE97' } ]
+33 silly lockFile bf0d6d6c-body-parsrser body-parsrser@
+34 silly lockFile bf0d6d6c-body-parsrser body-parsrser@
+35 error 404 404 Not Found: body-parsrser
+35 error 404
+35 error 404 'body-parsrser' is not in the npm registry.
+35 error 404 You should bug the author to publish it
+35 error 404 It was specified as a dependency of 'login'
+35 error 404
+35 error 404 Note that you can also install from a
+35 error 404 tarball, folder, or http url, or git url.
+36 error System Linux 3.13.0-53-generic
+37 error command "/usr/bin/node" "/usr/bin/npm" "install" "body-parsrser" "--save"
+38 error cwd /home/d/Projects-Comfnet/3DPrinter/login-module
+39 error node -v v0.10.40
+40 error npm -v 1.4.28
+41 error code E404
+42 verbose exit [ 1, true ]

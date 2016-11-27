@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>3D Printer</title>
+<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/css/dashboard.css">
+
+<script type="text/javascript">
+    var ipaddress = "<%= printer_info.ipaddress %>";
+    var camport = "<%= printer_info.camport %>";
+    var raspberryport = "<%= printer_info.raspberryapp_port %>";
+    var printer_id = "<%= printer_info.id %>";
+    var printer_name = "<%= printer_info.printername %>";
+    
+</script>
+</head>
+
+<script src="/js/dashboard.js"></script>  
+<body>
+    
+<div class="container">
+     <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Dashboard</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right"> 
+                <li> <a href="/printermenu"><span class="glyphicon glyphicon-arrow-left"></span> Back to menu page</a></li>
+              <li> <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+              <li class="dropdown">
+                  <a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><%= user.local.email%> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li data-toggle="modal" data-target="#user-info-modal"><a href="#" >Change Password</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+     <div class="row "><div  class="col-xs-8 col-xs-offset-4"  id="Uploadmessage"> </div> </div> 
+    <div class="row ">
+        <div class="col-xs-12 col-md-6">
+             <div class="row ">
+                 <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title glyphicon glyphicon-info-sign">Printer:<%= printer_info.printername %></h3>
+                            <h3 class="panel-title" id="info"></h3>
+                        </div>
+                    <div class="panel-body">
+                        <div id="raspberryupload" ></div>
+                        <span class="label label-info" >File :</span> <span class ="temps1" id ="p1"></span>
+                        </br></br>
+                        <span class="label label-info" >Filament type :</span> <span class = "temps1"  id = "p2"></span></br></br>
+                        <span class="label label-info" >Object Height :</span><span class = "temps1"  id="p3" ></span></br></br>
+
+
+                        <h style ="font-size:20px;">Temperatures</h>
+                        <p></p>
+                        <div id="data">
+
+                        <span class= "label label-info">Chamber Temperature :  </span> <span class = "temps"  id="temp1"></span></br></br>
+                        <span class= "label label-info" >Heat-Bed Temperature  : </span> <span class = "temps"  id="temp2"></span></br></br> 
+                        <span class= "label label-info" >Nozzle Temperature : </span> <span class = "temps"  id="temp3"></span></br></br>  
+						<button id="print" type="button" class="btn btn-primary glyphicon glyphicon-print ">Print</button>
+
+                        <button type="button" class="btn btn-success glyphicon glyphicon-pause ">Pause</button>
+                        <button id="cancel" type="button" class="btn btn-info glyphicon glyphicon-stop">Cancel</button>	 
+                        </div>
+                        
+                    </div>
+
+                    </div> 
+              </div>
+             <!--  <div class="row ">
+                    <div class="col-xs-12">
+                    <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title glyphicon glyphicon-list">Files</h3>
+                    </div>
+                    <div class="panel-body">
+                        <button type="button" class="btn btn-primary glyphicon glyphicon-cloud-upload ">Upload file to Server</button>
+
+
+                    </div>
+                </div>
+                </div>
+            </div>-->
+
+            </div>
+
+        </div>
+
+         <div class="col-xs-12 col-md-6" id="tab_panel">
+             
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Performance Monitor</h3>
+                </div>
+                <div class="panel-body">
+                 <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#temp">Temperature</a></li>
+            <li><a data-toggle="tab" href="#video">Video</a></li>
+            <li><a data-toggle="tab" href="#gcode">GCode Viewer</a></li>
+            <li><a data-toggle="tab" href="#timelapse">Timelapse</a></li>
+            <li><a data-toggle="tab" href="#filelist">File List</a></li>
+            <li id="sd_filelist_tab" ><a data-toggle="tab" href="#sdfilelist">Sd Files</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="temp" class="tab-pane fade in active">
+<div id ="graph">
+        <div id="chartContainer" style="height: 300px; width: 100%;">
+	</div>    
+    
+		</div>
+
+            </div>
+            <div id="video" class="tab-pane fade">
+                   <video id="remote-video" autoplay=""  style="border:1px solid ; " width= "360px" height = "270px">
+                            Your browser does not support the video tag.
+                        </video>
+                <div id="snapshotimage" ></div>
+               <!-- <input type="hidden" id="signalling_server" value="192.168.2.199:8100" title="<host>:<port>, default address is autodetected"/><br>
+                <button style ="border-radius:5px;box-shadow:10px 10px 5px #CED8F6;background-color:#F8E0E0;color:brown;width:120px;height:30px;font-family: Cursive;font-size:15px;" id="start" onclick="start();">Start</button>
+                <button  style ="border-radius:5px;box-shadow:10px 10px 5px #CED8F6;background-color:#F8E0E0;color:brown;width:120px;height:30px;font-family: Cursive;font-size:15px;" disabled id="stop" onclick="stop();">Stop</button>
+                <button  style ="border-radius:5px;box-shadow:10px 10px 5px #CED8F6;background-color:#F8E0E0;color:brown;width:120px;height:30px;font-family: Cursive;font-size:15px;"  id="startrec" disabled>StartREC</button>
+                <button  style ="border-radius:5px;box-shadow:10px 10px 5px #CED8F6;background-color:#F8E0E0;color:brown;width:120px;height:30px;font-family: Cursive;font-size:15px;"  id="stoprec" onclick="stoprecording();" disabled>StopREC</button>
+               <button  style ="border-radius:5px;box-shadow:10px 10px 5px #CED8F6;background-color:#F8E0E0;color:brown;width:120px;height:30px;font-family: Cursive;font-size:15px;" id="save" disabled>Save Video</button> 
+                -->
+            </div>
+              
+            <div id="gcode" class="tab-pane fade">
+
+            </div>
+            <div id="timelapse" class="tab-pane fade">
+
+            </div>
+            <div id="filelist" class="tab-pane fade">
+            <table id="uplaoded-filelist" class="table table-striped"><thead></thead><tbody></tbody></table>
+            </div>
+            <div id="sdfilelist" class="tab-pane fade">
+                <form><table id="uplaoded-sdfilelist" class="table table-striped"><thead></thead><tbody></tbody></table></form>
+            </div>
+              
+          </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    
+
+
+
+   
+      </div>
+    <!--Container Div end-->
+
+
+
+
+
+
+        <!--Modal Window start-->
+    <div class="modal fade" id="user-info-modal" tabindex="-1" role="dialog" aria-labelledby="userInfoModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="userInfoModalLabel">Change Password</h4>
+      </div>
+      <div class="modal-body">
+   
+          <form id="identicalForm" class="form-horizontal"
+    data-fv-framework="bootstrap"
+    data-fv-icon-valid="glyphicon glyphicon-ok"
+    data-fv-icon-invalid="glyphicon glyphicon-remove"
+    data-fv-icon-validating="glyphicon glyphicon-refresh">
+
+    <div class="form-group">
+        <label class="col-xs-4 control-label">Password</label>
+        <div class="col-xs-5">
+            <input type="password" class="form-control" name="password" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-4 control-label">Retype password</label>
+        <div class="col-xs-5">
+            <input type="password" class="form-control" name="confirmPassword"
+                data-fv-identical="true"
+                data-fv-identical-field="password"
+                data-fv-identical-message="The password and its confirm are not the same" />
+        </div>
+    </div>
+</form>
+
+          
+          
+          
+    </div>
+      
+              <div class="modal-footer save">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save_password">Save changes</button>
+              </div>
+        
+        
+  </div>
+</div>
+        </div>
+    
+    <!-- Modal window end-->
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/socket.io-1.2.0/index.js"></script>
+<script src="/js/graph.js"></script>
+
+<script src="/js/canvasjs.min.js"></script>
+<script src="/js/RecordRTC.js"></script>
+<script src="/js/socket_client.js"></script>
+<script src="/js/video.js"></script>	
+
+</body>
+</html>                                		
